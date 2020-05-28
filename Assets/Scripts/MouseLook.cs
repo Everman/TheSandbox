@@ -5,7 +5,7 @@ using UnityEngine;
 public class MouseLook : MonoBehaviour
 {
     [SerializeField] private float mouseSensitivity = 1000f;
-    [SerializeField] private Transform playerBody;
+    [SerializeField] private Transform playerBody = null;
 
     float xRotation = 0f;
 
@@ -13,6 +13,11 @@ public class MouseLook : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+
+        if (playerBody == null )
+        {
+            Debug.LogError("Error - PlayerBody not assigned in MouseLook script. Please assing the PlayerBody to this script in the inspector!");
+        }
     }
 
     // Update is called once per frame
