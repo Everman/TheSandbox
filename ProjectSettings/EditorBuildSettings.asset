@@ -9,6 +9,15 @@ EditorBuildSettings:
     path: Assets/z_OnCreate/Scenes/SampleScene.unity
     guid: d1c3109bdb54ad54c8a2b2838528e640
   - enabled: 1
+    path: Assets/Scenes/UI.unity
+    guid: 0abd6416293fa8541857caea6f158834
+  - enabled: 1
     path: Assets/Scenes/PlayerMovement.unity
     guid: 2925657be821d764bb3dd5abb0b6c520
+  - enabled: 1
+    path: Assets/Scenes/Terrain.unity
+    guid: 5e4705ab771427343ba3315a50374bac
+  - enabled: 1
+    path: Assets/Scenes/Main.unity
+    guid: ab35b4b79c5d61742a95d2faae778209
   m_configObjects: {}
