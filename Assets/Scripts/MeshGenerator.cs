@@ -27,17 +27,25 @@ public class MeshGenerator : MonoBehaviour
     private void createShape()
     {
         vertices = new Vector3[(xSize + 1) * (zSize + 1)];
-        int y = 0;
-        int quadNumber = 0;
+        float y = 0;
 
         for (int i = 0, z = 0; z <= zSize; z++)
         {
             for (int x = 0; x <= xSize; x++)
             {
-                // Should be changed to incorperate a quad instead of positive and negative, below is close?
-                if ((x % 2 == 0) && (i % 2 == 0))
+                if (i > xSize) // to prevent an Index out of Bounds
                 {
-                    y = UnityEngine.Random.Range(0, 2);
+                    if (z % 2 == 0)
+                    {
+                        y = vertices[i - xSize - 1].y;
+                    }
+                    else
+                    {
+                        if (x % 2 == 0)
+                        {
+                            y = UnityEngine.Random.Range(0,2);
+                        }
+                    }
                 }
 
                 vertices[i] = new Vector3(x, y, z);
@@ -55,9 +63,12 @@ public class MeshGenerator : MonoBehaviour
             for (int x = 0; x < xSize; x++)
             {
 
+                // Triangle one
                 triangles[tris + 0] = vert + 0;
                 triangles[tris + 1] = vert + xSize + 1;
                 triangles[tris + 2] = vert + 1;
+
+                // Triangle two
                 triangles[tris + 3] = vert + 1;
                 triangles[tris + 4] = vert + xSize + 1;
                 triangles[tris + 5] = vert + xSize + 2;
@@ -65,7 +76,7 @@ public class MeshGenerator : MonoBehaviour
                 vert++;
                 tris += 6;
             }
-            vert++;
+            vert++; // this is required to go to the next row else the last and the first of the row will be connected
         }        
     }
 
@@ -77,6 +88,11 @@ public class MeshGenerator : MonoBehaviour
         mesh.triangles = triangles;
 
         mesh.RecalculateNormals();
+
+        // This is to add a Collider
+       // mesh.RecalculateBounds(); -- Documentation tells us this is already done when triangles are updated
+        MeshCollider meshCollider = gameObject.GetComponent<MeshCollider>();
+        meshCollider.sharedMesh = mesh;
     }
 
     //private void OnDrawGizmos()
